@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                      https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0"
+         metadata-complete="true">
+
+    <context-param>
+        <param-name>Key1</param-name>
+        <param-value>Val1</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>product-servlet</servlet-name>
+        <servlet-class>ua.hillel.web.ProductServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>product-servlet</servlet-name>
+        <url-pattern>/orders</url-pattern>
+    </servlet-mapping>
+</web-app>

@@ -1,0 +1,22 @@
+{
+  "id": 1,
+  "date": "2025-02-14",
+  "cost": 150.75,
+  "products": [
+    {
+      "id": 101,
+      "name": "Laptop",
+      "cost": 1000.50
+    },
+    {
+      "id": 102,
+      "name": "Mouse",
+      "cost": 25.99
+    },
+    {
+      "id": 103,
+      "name": "Keyboard",
+      "cost": 50.25
+    }
+  ]
+}
