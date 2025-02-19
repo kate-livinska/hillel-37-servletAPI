@@ -2,11 +2,14 @@ package ua.hillel.service;
 
 import ua.hillel.model.Order;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductsService {
-    void addOrder(Order order);
+    boolean addOrder(Order order);
     Optional<Order> getOrderById(Long id);
-    void updateOrder(Order order);
-    void deleteOrder(Long id);
+    boolean updateOrder(Order order);
+    boolean deleteOrder(Long id);
+
+    void setOrders(List<Order> ordersList);
 }

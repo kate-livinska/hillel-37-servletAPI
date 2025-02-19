@@ -1,17 +1,32 @@
 package ua.hillel.service;
 
+import lombok.Setter;
 import ua.hillel.model.Order;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Setter
 public class ProductsInMemoryService implements ProductsService {
-    private List<Order> orders = new ArrayList<Order>();
+    private List<Order> orders;
+
+    public ProductsInMemoryService() {
+        orders = new ArrayList<>();
+    }
 
     @Override
-    public void addOrder(Order order) {
-        orders.add(order);
+    public boolean addOrder(Order order) {
+        if (order == null || order.getId() == null) {
+            return false;
+        }
+        Optional<Order> foundOrder = orders.stream()
+                .filter(o -> o.getId().equals(order.getId()))
+                .findFirst();
+        if (foundOrder.isPresent()) {
+            return false;
+        } else {
+            return orders.add(order);
+        }
     }
 
     @Override
@@ -26,23 +41,29 @@ public class ProductsInMemoryService implements ProductsService {
     }
 
     @Override
-    public void updateOrder(Order order) {
-        if (orders.contains(order)) {
-            orders.stream()
-                    .filter(o -> o.getId().equals(order.getId()))
-                    .findFirst()
-                    .ifPresent(o -> {
-                        o.setDate(order.getDate());
-                        o.setProducts(order.getProducts());
-                        o.setCost(order.getCost());
-                    });
+    public boolean updateOrder(Order order) {
+        if (order == null || order.getId() == null) {
+            return false;
+        }
+        Optional<Order> foundOrder = orders.stream()
+                .filter(o -> o.getId().equals(order.getId()))
+                .findFirst();
+        if (foundOrder.isPresent()) {
+            foundOrder.get().setDate(order.getDate());
+            foundOrder.get().setCost(order.getCost());
+            foundOrder.get().setProducts(order.getProducts());
+            return true;
         } else {
-            orders.add(order);
+            return false;
         }
     }
 
     @Override
-    public void deleteOrder(Long id) {
-        orders.removeIf(o -> o.getId().equals(id));
+    public boolean deleteOrder(Long id) {
+        if (orders.isEmpty()) return false;
+        else if (id == null) {
+            return false;
+        }
+        return orders.removeIf(o -> o.getId().equals(id));
     }
 }
